@@ -10,6 +10,7 @@ defmodule Funbox.Application do
     children = [
       # Start the Ecto repository
       Funbox.Repo,
+      {Oban, Application.fetch_env!(:funbox, Oban)},
       # Start the Telemetry supervisor
       FunboxWeb.Telemetry,
       # Start the PubSub system

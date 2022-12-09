@@ -5,6 +5,8 @@ import Config
 # The MIX_TEST_PARTITION environment variable can be used
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
+config :funbox, Oban, testing: :inline
+
 config :funbox, Funbox.Repo,
   username: "postgres",
   password: "postgres",

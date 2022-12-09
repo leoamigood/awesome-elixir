@@ -7,6 +7,11 @@
 # General application configuration
 import Config
 
+config :funbox, Oban,
+       repo: Funbox.Repo,
+       plugins: [Oban.Plugins.Pruner],
+       queues: [default: 10]
+
 config :funbox,
   ecto_repos: [Funbox.Repo]
 
