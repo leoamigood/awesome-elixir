@@ -1,4 +1,4 @@
-# Funbox
+# Awesome Elixir for FunBox
 
 To start your Phoenix server:
 
@@ -8,12 +8,9 @@ To start your Phoenix server:
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+* Awesome repositories crawler starts at minight and might take up to a day for it to fully complete.
+* In order to kick off crawling process prior to midnight use IEx as: `%{} |> Funbox.ContentCrawlerWorker.new() |> Oban.insert()`
+* Keep in mind that GitHub is limiting anonymous calls with a rate of 60 requests per hour (per ip address).
 
-## Learn more
-
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+In order to see this code running on production visit
+[`https://awesome-elixir.fly.dev/`](https://awesome-elixir.fly.dev) from your browser

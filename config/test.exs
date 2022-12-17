@@ -6,6 +6,9 @@ import Config
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
 config :funbox, Oban, testing: :inline
+config :funbox, github_client: Funbox.GithubClient.Mock
+config :funbox, content_parser: Funbox.ContentParser.Mock
+config :funbox, content_transformer: Funbox.ContentTransformer.Mock
 
 config :funbox, Funbox.Repo,
   username: "postgres",

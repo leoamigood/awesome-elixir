@@ -7,10 +7,17 @@
 # General application configuration
 import Config
 
+config :funbox, github_client: Funbox.GithubClient.Impl
+config :funbox, content_parser: Funbox.ContentParser.Impl
+config :funbox, content_transformer: Funbox.ContentTransformer.Impl
+
 config :funbox, Oban,
-       repo: Funbox.Repo,
-       plugins: [Oban.Plugins.Pruner],
-       queues: [default: 10]
+  repo: Funbox.Repo,
+  plugins: [
+    {Oban.Plugins.Pruner, max_age: 24 * 60 * 60},
+    {Oban.Plugins.Cron, crontab: [{"@daily", Funbox.ContentCrawlerWorker}]}
+  ],
+  queues: [default: 10, crawler: 1]
 
 config :funbox,
   ecto_repos: [Funbox.Repo]
@@ -51,6 +58,8 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+config :tentacat, :deserialization_options, keys: :atoms
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
