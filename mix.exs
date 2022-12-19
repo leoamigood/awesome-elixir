@@ -37,6 +37,7 @@ defmodule Funbox.MixProject do
       {:phoenix_ecto, "~> 4.4"},
       {:earmark, "~> 1.4"},
       {:ecto_sql, "~> 3.6"},
+      {:clean_mixer, "~> 0.2", only: [:dev, :test], runtime: false},
       {:hammox, "~> 0.7", only: [:dev, :test]},
       {:oban, "~> 2.13"},
       {:postgrex, ">= 0.0.0"},
