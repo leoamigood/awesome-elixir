@@ -35,4 +35,8 @@ npm-debug.log
 # IDEA
 .idea/*
 
-rel/
+# Mac OS
+.DS_Store
+
+# Ecto ERD (Entity Relationship Diagram)
+*.dot
