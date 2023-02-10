@@ -4,16 +4,14 @@ defmodule Funbox.ContentTransformerTest do
   alias Funbox.ContentTransformer
 
   setup do
-    Mock.allow_to_call_impl(ContentTransformer, :anchor, 1)
-    Mock.allow_to_call_impl(ContentTransformer, :section, 2)
-    Mock.allow_to_call_impl(ContentTransformer, :stargaze, 2)
+    Mock.allow_to_call_impl(ContentTransformer, :transform, 2)
     {:ok, readme, _} = File.read!('test/README.md') |> EarmarkParser.as_ast()
 
     {:ok, content: readme}
   end
 
   test "succeeded to append id anchor to heading nodes", %{content: content} do
-    ast = ContentTransformer.impl().anchor(content)
+    ast = ContentTransformer.Impl.anchor(content)
 
     assert Enum.member?(ast, {"h2", [{"id", "actors"}], ["Actors"], %{}})
     assert Enum.member?(ast, {"h2", [{"id", "webassembly"}], ["WebAssembly"], %{}})
@@ -22,13 +20,9 @@ defmodule Funbox.ContentTransformerTest do
   end
 
   test "succeeded to hide sections based on awesomeness", %{content: content} do
-    awesomeness = %{
-      "Actors" => 100,
-      "Applications" => 125,
-      "Resources" => true
-    }
+    awesomeness = ["Actors", "Applications", "Resources"]
 
-    ast = ContentTransformer.impl().section(content, awesomeness)
+    ast = ContentTransformer.Impl.section_filter(content, awesomeness)
 
     assert Enum.member?(ast, {"h2", [], ["Actors"], %{}})
     assert Enum.member?(ast, {"h2", [], ["Applications"], %{}})
@@ -45,7 +39,7 @@ defmodule Funbox.ContentTransformerTest do
       "aeacus" => {36, DateTime.utc_now() |> DateTime.add(-25 * (24 * 60 * 60), :second)}
     }
 
-    ast = ContentTransformer.impl().stargaze(content, awesomeness)
+    ast = ContentTransformer.Impl.stargaze(content, awesomeness)
 
     alf =
       {"li", [],

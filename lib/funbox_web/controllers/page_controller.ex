@@ -12,7 +12,7 @@ defmodule FunboxWeb.PageController do
 
   def index(conn, _params), do: awesome_elixir(conn)
 
-  defp awesome_elixir(conn, stars \\ nil) do
+  defp awesome_elixir(conn, stars \\ 0) do
     case Awesome.latest_content() do
       nil -> render(conn, "empty.html")
       readme -> render(conn, "index.html", content: Awesome.enrich(readme.content, stars))
